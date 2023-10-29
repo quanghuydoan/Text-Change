@@ -1,0 +1,113 @@
+<!--Header-->
+<h1>Change text</h1>
+
+<!--Asks user for a key word-->
+
+<label for='headline-input'>
+  Select font size
+  <select class="js-example-basic-single" name="state">
+    <option value="AL">Alabama</option>
+    
+    <option value="WY">Wyoming</option>
+  </select>
+</label>
+
+
+<label for='headline-input'>
+  Headline
+  <input required id="headline-input" type="text" placeholder="Headline" />
+</label>
+
+<label for='description-input'>
+  Description
+  <input required id="description-input" type="text" placeholder="Description" />
+</label>
+
+<label for='phone-input'>
+  Phone
+  <input required id="phone-input" type="text" placeholder="Phone" />
+</label>
+
+<label for='address-input'>
+  Address
+  <input required id="keyword-input" type="text" placeholder="Address" />
+</label>
+
+<label for='email-input'>
+  Email
+  <input required id="email-input" type="text" placeholder="Email" />
+</label>
+
+<div>
+  <button id="change">Change</button>
+</div>
+
+<div class="message" id="messageArea"></div>
+
+<style>
+  body {
+    font-family: sans-serif;
+  }
+
+  p {
+    color: #777777;
+  }
+
+  label {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    width: 75%;
+    font-weight: 600;
+  }
+
+  input {
+    font-size: 14px;
+    margin-top: 3px;
+    border-style: none;
+    border-bottom-style: solid;
+    outline: none;
+    font-weight: 600;
+  }
+
+  button {
+    margin-top: 20px;
+    padding: 10px;
+    font-weight: 700;
+  }
+</style>
+
+<script>
+  import { getFonts } from 'font-list'
+    getFonts()
+      .then(fonts => {
+        console.log(fonts)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+
+
+
+  const headlineInput = document.getElementById('headline-input');
+  const changeButton = document.getElementById('change');
+  const messageArea = document.getElementById("messageArea");
+
+  
+  changeButton.addEventListener('click', async () => {
+
+    const headline = headlineInput.value;
+
+
+    if (headline.trim() === "") {
+      showMessage("Please enter both text name and new text content.");
+      return;
+    }
+    parent.postMessage({ pluginMessage: { type: 'changeText', data: { headline } } }, '*');
+  });
+  function showMessage(message) {
+      messageArea.textContent = message;
+  }
+
+  </script>
